@@ -1,0 +1,31 @@
+name: Build e Test .NET WebApp
+
+on:
+  push:
+    branches:
+      - main      
+  schedule:
+    - cron: '0 * * * *'  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4           
+
+      - name: Configurar .NET
+        uses: actions/setup-dotnet@v3      
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restaurar dependências
+        run: dotnet restore **/*.csproj    
+
+      - name: Compilar projeto
+        run: dotnet build **/*.csproj --no-restore
+
+      - name: Script customizado pós-build
+        run: |
+          echo "Build concluída em $(date)"

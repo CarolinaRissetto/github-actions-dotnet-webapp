@@ -26,6 +26,7 @@ jobs:
       - name: Compilar projeto
         run: dotnet build **/*.csproj --no-restore
 
+
       - name: Script customizado pós-build
         run: |
           echo "Build concluída em $(date)"
